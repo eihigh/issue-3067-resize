@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		canvas {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<script src="/go/go1.23.0/wasm_exec.js"></script>
+	<script>
+		// const obs = new ResizeObserver((entries) => {
+		// 	// trigger resize event manually
+		// 	window.dispatchEvent(new Event('resize'));
+		// });
+		// obs.observe(document.body);
+
+		const chan = new BroadcastChannel('player');
+		chan.addEventListener('message', async (e) => {
+			const go = new Go();
+			const url = '/game.wasm'
+			const result = await WebAssembly.instantiateStreaming(await fetch(url), go.importObject).catch((err) => {
+				console.error(err);
+			});
+			go.run(result.instance);
+		});
+	</script>
+</body>
+</html>
