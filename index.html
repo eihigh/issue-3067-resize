@@ -9,14 +9,8 @@
 		<button onclick="play()">Open player</a>
 
 		<script>
-			// communicate wasm file and the error message with the player
-			const playerChan = new BroadcastChannel('player');
-
 			function play() {
-				const player = window.open('/play', '_blank');
-				player.onload = () => {
-					playerChan.postMessage(null);
-				};
+				window.open('/play', '_blank');
 			}
 		</script>
 	</body>

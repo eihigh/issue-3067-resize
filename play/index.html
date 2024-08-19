@@ -18,8 +18,7 @@
 		// });
 		// obs.observe(document.body);
 
-		const chan = new BroadcastChannel('player');
-		chan.addEventListener('message', async (e) => {
+		document.addEventListener('DOMContentLoaded', async (e) => {
 			const go = new Go();
 			const url = '/game.wasm'
 			const result = await WebAssembly.instantiateStreaming(await fetch(url), go.importObject).catch((err) => {
